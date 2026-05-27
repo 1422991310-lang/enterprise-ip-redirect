@@ -133,6 +133,8 @@ npm.cmd run deploy
 
 Wrangler will ask you to log in to Cloudflare if needed.
 
+For the full public deployment checklist, including B domain routing, A target URLs that are bare IP addresses, and production verification, see `PUBLIC_DEPLOYMENT.md`.
+
 ## Important
 
 Protect A directly with VPN, SSO, Cloudflare Access, private networking, or an equivalent server-side rule. This Worker controls the B entrypoint only; users who know A can otherwise bypass B.

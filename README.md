@@ -29,6 +29,8 @@ Prepare these values before deployment:
 
 See `cloudflare-worker/README.md` for the full setup and deployment steps.
 
+For public production deployment, including B domain routing and A-as-IP notes, see `cloudflare-worker/PUBLIC_DEPLOYMENT.md`.
+
 ## Local Test
 
 ```powershell

@@ -666,6 +666,7 @@ function debugResponse({ visitorCountry, simulatedCountry, decision, config, req
         </div>
         <div class="status ${decision.allowed ? "ok" : "deny"}">${escapeHtml(allowedBadge)}</div>
       </section>
+      <p class="helper-note">This page is only for local or manual simulation. Public traffic uses Cloudflare geolocation from the visitor IP automatically.</p>
       <section class="debug-grid">
         <div>
           <dt>Detected country</dt>
@@ -970,6 +971,12 @@ function renderShell({ title, body }) {
     }
     .panel h1 {
       font-size: 28px;
+    }
+    .helper-note {
+      margin: 18px 0 0;
+      color: #536173;
+      line-height: 1.55;
+      font-weight: 700;
     }
     .muted {
       color: #607086;

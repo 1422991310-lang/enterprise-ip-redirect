@@ -18,7 +18,7 @@
     {
       "binding": "REDIRECT_CONFIG"
     }
-  ]
+  ],
   // For production on your own B domain, add a route after replacing example.com:
   // "route": {
   //   "pattern": "b.example.com/*",
