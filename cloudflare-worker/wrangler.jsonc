@@ -16,7 +16,8 @@
   },
   "kv_namespaces": [
     {
-      "binding": "REDIRECT_CONFIG"
+      "binding": "REDIRECT_CONFIG",
+      "id": "f6461b1c7f634ad6ae8d483d46253919"
     }
   ],
   "route": {
