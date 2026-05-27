@@ -340,6 +340,7 @@ async function handleAdmin(request, env, config, url) {
     if (request.method === "GET" || request.method === "HEAD") {
         return adminPageResponse({
             config,
+            entryUrl: entryUrlFromRequestUrl(url),
             saved: url.searchParams.get("saved") === "1",
         });
     }
@@ -359,6 +360,7 @@ async function handleAdmin(request, env, config, url) {
                 targetAllowed: validation.values.targetAllowed,
                 targetFallback: validation.values.targetFallback,
             },
+            entryUrl: entryUrlFromRequestUrl(url),
             errors: validation.errors,
             status: 400,
         });
@@ -378,6 +380,7 @@ async function handleAdmin(request, env, config, url) {
                 ...config,
                 ...nextConfig,
             },
+            entryUrl: entryUrlFromRequestUrl(url),
             errors: [saved.error],
             status: 500,
         });
@@ -390,6 +393,10 @@ async function handleAdmin(request, env, config, url) {
             "Cache-Control": "no-store",
         },
     });
+}
+
+function entryUrlFromRequestUrl(url) {
+    return `${url.origin}/`;
 }
 
 function validateAdminForm(form) {
@@ -596,7 +603,7 @@ function loginPageResponse({ username = "", error = "", status = 200 } = {}) {
     return htmlResponse(renderShell({ title: "Redirect Admin Login", body }), status);
 }
 
-function adminPageResponse({ config, errors = [], saved = false, status = 200 }) {
+function adminPageResponse({ config, entryUrl, errors = [], saved = false, status = 200 }) {
     const extraCodes = config.allowedCountries
         .filter((code) => !COUNTRY_OPTION_CODES.has(code))
         .join(", ");
@@ -623,6 +630,17 @@ function adminPageResponse({ config, errors = [], saved = false, status = 200 })
       </section>
       ${saved ? '<div class="notice success">Configuration saved.</div>' : ""}
       ${errors.length > 0 ? `<div class="notice error">${errors.map((error) => `<p>${escapeHtml(error)}</p>`).join("")}</div>` : ""}
+      <section class="field-band entry-link-panel">
+        <div class="section-title">
+          <label for="entryUrl">Generated D link</label>
+          <span>Share this link</span>
+        </div>
+        <div class="entry-link-row">
+          <input id="entryUrl" type="url" value="${escapeAttribute(entryUrl)}" readonly>
+          <button type="button" class="secondary-button" data-copy-target="entryUrl">Copy</button>
+        </div>
+        <p class="helper-note">Users should open this D link. It applies the current A/C/country rules and redirects by the visitor environment.</p>
+      </section>
       <form method="post" action="/admin" class="admin-form">
         <section class="field-band">
           <label for="targetAllowed">A target URL</label>
@@ -896,6 +914,16 @@ function renderShell({ title, body }) {
       align-items: center;
       padding-top: 4px;
     }
+    .entry-link-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+    .entry-link-row input[readonly] {
+      background: #f7fbff;
+      font-weight: 800;
+    }
     button,
     .actions a {
       min-height: 42px;
@@ -916,6 +944,11 @@ function renderShell({ title, body }) {
       border-color: #0f766e;
       background: #0f766e;
       color: #fff;
+    }
+    .secondary-button {
+      border-color: #9db0c2;
+      background: #fff;
+      color: #0f3349;
     }
     .notice {
       margin-top: 18px;
@@ -1030,8 +1063,35 @@ function renderShell({ title, body }) {
       .debug-grid {
         padding: 16px;
       }
+      .entry-link-row {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
+  <script>
+    document.addEventListener("click", async (event) => {
+      const button = event.target.closest("[data-copy-target]");
+      if (!button) {
+        return;
+      }
+
+      const input = document.getElementById(button.dataset.copyTarget);
+      if (!input) {
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(input.value);
+        button.textContent = "Copied";
+        setTimeout(() => {
+          button.textContent = "Copy";
+        }, 1200);
+      } catch {
+        input.focus();
+        input.select();
+      }
+    });
+  </script>
 </head>
 <body>
   <main>${body}</main>

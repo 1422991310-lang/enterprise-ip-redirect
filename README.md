@@ -13,6 +13,7 @@ The active implementation is in `cloudflare-worker/`.
 Current production defaults:
 
 - B entry domain: `https://netfly.ecinf.xyz/`
+- Current generated D link: `https://enterprise-country-redirect.netfly-ecinf.workers.dev/`
 - Allowed country/region: `JP`
 - A target URL: `https://github.com/1422991310-lang`
 - C fallback URL: `https://www.cloudflare.com/`

@@ -88,12 +88,20 @@ https://netfly.ecinf.xyz/admin
 
 Log in, set A URL, C URL, and allowed countries/regions, then save.
 
+The admin page will show a generated D link after login. Copy that D link and use it as the public entry link for this redirect event.
+
 ## 6. Public Use
 
-Publish only the B entry link:
+Publish only the generated D link:
 
 ```text
 https://netfly.ecinf.xyz/
+```
+
+Until `netfly.ecinf.xyz` is active in Cloudflare, the generated D link can be the workers.dev URL:
+
+```text
+https://enterprise-country-redirect.netfly-ecinf.workers.dev/
 ```
 
 Expected behavior:

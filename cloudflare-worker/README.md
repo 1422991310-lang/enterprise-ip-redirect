@@ -115,6 +115,7 @@ npm.cmd test
 3. Log in with username `admin` unless `ADMIN_USERNAME` was changed. The password is the `ADMIN_PASSWORD` secret.
 4. Fill in A target URL, C fallback URL, and allowed countries/regions.
 5. Save. The Worker stores the config in KV under `redirect-config`.
+6. Copy the generated D link from the admin page and share that link with users. The D link is the Worker entry URL and applies the current redirect rules.
 
 For local development, create `.dev.vars` with:
 

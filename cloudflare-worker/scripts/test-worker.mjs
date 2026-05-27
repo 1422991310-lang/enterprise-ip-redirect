@@ -111,7 +111,10 @@ const cookieAdmin = await worker.fetch(new Request("https://b.example.com/admin"
 }), secureEnv);
 
 assertEqual(cookieAdmin.status, 200, "session cookie opens admin page");
-assertEqual((await cookieAdmin.text()).includes("Save configuration"), true, "session admin page renders the config form");
+const cookieAdminHtml = await cookieAdmin.text();
+assertEqual(cookieAdminHtml.includes("Save configuration"), true, "session admin page renders the config form");
+assertEqual(cookieAdminHtml.includes("Generated D link"), true, "admin page renders the generated D link");
+assertEqual(cookieAdminHtml.includes('value="https://b.example.com/"'), true, "admin page uses the current origin as the generated D link");
 
 const authorizedAdmin = await worker.fetch(new Request("https://b.example.com/admin", {
     headers: {
