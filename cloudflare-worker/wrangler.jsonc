@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "enterprise-ip-redirect",
+  "name": "enterprise-country-redirect",
   "main": "src/index.js",
   "compatibility_date": "2026-05-27",
   "workers_dev": true,
@@ -8,11 +8,17 @@
     "enabled": true
   },
   "vars": {
-    "ALLOWED_IPS": "203.0.113.10,198.51.100.20",
+    "ALLOWED_COUNTRIES": "CN",
     "TARGET_ALLOWED": "https://a.example.com/internal-page",
     "TARGET_FALLBACK": "https://c.example.com/access-info",
+    "ADMIN_USERNAME": "admin",
     "DEBUG_VIEW": "1"
-  }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "REDIRECT_CONFIG"
+    }
+  ]
   // For production on your own B domain, add a route after replacing example.com:
   // "route": {
   //   "pattern": "b.example.com/*",

@@ -1,3 +1,5 @@
 node_modules/
 .wrangler/
-wrangler-dev.*.log
+wrangler-dev*.log
+.dev.vars
+.dev.vars.*
