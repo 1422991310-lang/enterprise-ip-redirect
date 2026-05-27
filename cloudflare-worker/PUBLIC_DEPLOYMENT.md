@@ -14,10 +14,10 @@ Local debug URLs such as `?country=IN` are only for simulation. Public visitors 
 Prepare these production values before deploying:
 
 ```text
-B domain:        https://b.example.com/
-A target URL:   https://adsagent.ecinf.cn/
-C fallback URL: https://example.com/not-allowed
-Allowed codes:  IN, JP, CN, SG
+B domain:        https://netfly.ecinf.xyz/
+A target URL:   https://github.com/1422991310-lang
+C fallback URL: https://www.cloudflare.com/
+Allowed codes:  JP
 Admin username: admin
 Admin password: choose a strong password
 ```
@@ -30,8 +30,8 @@ In `wrangler.jsonc`, replace the commented route example with your real B domain
 
 ```jsonc
 "route": {
-  "pattern": "b.example.com/*",
-  "zone_name": "example.com"
+  "pattern": "netfly.ecinf.xyz/*",
+  "zone_name": "ecinf.xyz"
 }
 ```
 
@@ -43,9 +43,9 @@ The first deployment can use environment defaults. These are later overridden by
 
 ```jsonc
 "vars": {
-  "ALLOWED_COUNTRIES": "IN,JP",
-  "TARGET_ALLOWED": "https://adsagent.ecinf.cn/",
-  "TARGET_FALLBACK": "https://example.com/not-allowed",
+  "ALLOWED_COUNTRIES": "JP",
+  "TARGET_ALLOWED": "https://github.com/1422991310-lang",
+  "TARGET_FALLBACK": "https://www.cloudflare.com/",
   "ADMIN_USERNAME": "admin",
   "DEBUG_VIEW": "0"
 }
@@ -83,7 +83,7 @@ npm.cmd run deploy
 After deployment, open:
 
 ```text
-https://b.example.com/admin
+https://netfly.ecinf.xyz/admin
 ```
 
 Log in, set A URL, C URL, and allowed countries/regions, then save.
@@ -93,7 +93,7 @@ Log in, set A URL, C URL, and allowed countries/regions, then save.
 Publish only the B entry link:
 
 ```text
-https://b.example.com/
+https://netfly.ecinf.xyz/
 ```
 
 Expected behavior:

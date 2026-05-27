@@ -10,6 +10,13 @@ This repository contains a Cloudflare Worker entrypoint for this flow:
 
 The active implementation is in `cloudflare-worker/`.
 
+Current production defaults:
+
+- B entry domain: `https://netfly.ecinf.xyz/`
+- Allowed country/region: `JP`
+- A target URL: `https://github.com/1422991310-lang`
+- C fallback URL: `https://www.cloudflare.com/`
+
 ## Cloudflare Worker
 
 Key files:
@@ -20,10 +27,10 @@ Key files:
 
 Prepare these values before deployment:
 
-- B domain, such as `b.example.com`.
+- B domain, currently `netfly.ecinf.xyz`.
 - A target URL for allowed visitors.
 - C fallback URL for all other visitors.
-- Allowed country/region codes, such as `CN`, `SG`, or `HK`.
+- Allowed country/region codes, currently `JP`.
 - Cloudflare Worker KV binding named `REDIRECT_CONFIG`.
 - Worker secret named `ADMIN_PASSWORD`.
 

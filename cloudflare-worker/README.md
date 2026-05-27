@@ -11,10 +11,10 @@ This Worker makes the B domain a configurable country/region redirect entrypoint
 
 ## What You Need
 
-- A B domain managed by Cloudflare, such as `b.example.com`.
-- The full A target URL, such as `https://a.example.com/internal-page`.
-- The full C fallback URL, such as `https://c.example.com/access-info`.
-- The country/region codes allowed to reach A, such as `CN`, `SG`, or `HK`.
+- A B domain managed by Cloudflare: `netfly.ecinf.xyz`.
+- The full A target URL: `https://github.com/1422991310-lang`.
+- The full C fallback URL: `https://www.cloudflare.com/`.
+- The country/region codes allowed to reach A: `JP`.
 - A Cloudflare account that can deploy Workers and create/bind KV namespaces.
 - An admin password stored as the `ADMIN_PASSWORD` Worker secret.
 
@@ -24,11 +24,11 @@ Edit `wrangler.jsonc`:
 
 ```jsonc
 "vars": {
-  "ALLOWED_COUNTRIES": "CN",
-  "TARGET_ALLOWED": "https://a.example.com/internal-page",
-  "TARGET_FALLBACK": "https://c.example.com/access-info",
+  "ALLOWED_COUNTRIES": "JP",
+  "TARGET_ALLOWED": "https://github.com/1422991310-lang",
+  "TARGET_FALLBACK": "https://www.cloudflare.com/",
   "ADMIN_USERNAME": "admin",
-  "DEBUG_VIEW": "1"
+  "DEBUG_VIEW": "0"
 },
 "kv_namespaces": [
   {
@@ -49,8 +49,8 @@ For production on your B domain, add a route or Custom Domain after replacing th
 
 ```jsonc
 "route": {
-  "pattern": "b.example.com/*",
-  "zone_name": "example.com"
+  "pattern": "netfly.ecinf.xyz/*",
+  "zone_name": "ecinf.xyz"
 }
 ```
 
@@ -79,7 +79,7 @@ npm.cmd run dev
 Open:
 
 ```text
-http://127.0.0.1:8787/__debug?country=CN
+http://127.0.0.1:8787/__debug?country=JP
 ```
 
 The debug page lets you simulate an allowed or denied country without changing your real location.
@@ -89,10 +89,10 @@ The debug page lets you simulate an allowed or denied country without changing y
 Allowed country:
 
 ```powershell
-curl.exe -I -H "CF-IPCountry: CN" http://127.0.0.1:8787/
+curl.exe -I -H "CF-IPCountry: JP" http://127.0.0.1:8787/
 ```
 
-Expected: `302` with `Location: https://a.example.com/internal-page`.
+Expected: `302` with `Location: https://github.com/1422991310-lang`.
 
 Denied country:
 
@@ -100,7 +100,7 @@ Denied country:
 curl.exe -I -H "CF-IPCountry: US" http://127.0.0.1:8787/
 ```
 
-Expected: `302` with `Location: https://c.example.com/access-info`.
+Expected: `302` with `Location: https://www.cloudflare.com/`.
 
 Run the automated tests:
 
@@ -111,7 +111,7 @@ npm.cmd test
 ## Use the Admin Page
 
 1. Deploy the Worker and set `ADMIN_PASSWORD`.
-2. Open `https://b.example.com/admin`.
+2. Open `https://netfly.ecinf.xyz/admin`.
 3. Log in with username `admin` unless `ADMIN_USERNAME` was changed. The password is the `ADMIN_PASSWORD` secret.
 4. Fill in A target URL, C fallback URL, and allowed countries/regions.
 5. Save. The Worker stores the config in KV under `redirect-config`.

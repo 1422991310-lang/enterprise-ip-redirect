@@ -8,20 +8,19 @@
     "enabled": true
   },
   "vars": {
-    "ALLOWED_COUNTRIES": "CN",
-    "TARGET_ALLOWED": "https://a.example.com/internal-page",
-    "TARGET_FALLBACK": "https://c.example.com/access-info",
+    "ALLOWED_COUNTRIES": "JP",
+    "TARGET_ALLOWED": "https://github.com/1422991310-lang",
+    "TARGET_FALLBACK": "https://www.cloudflare.com/",
     "ADMIN_USERNAME": "admin",
-    "DEBUG_VIEW": "1"
+    "DEBUG_VIEW": "0"
   },
   "kv_namespaces": [
     {
       "binding": "REDIRECT_CONFIG"
     }
   ],
-  // For production on your own B domain, add a route after replacing example.com:
-  // "route": {
-  //   "pattern": "b.example.com/*",
-  //   "zone_name": "example.com"
-  // }
+  "route": {
+    "pattern": "netfly.ecinf.xyz/*",
+    "zone_name": "ecinf.xyz"
+  }
 }
